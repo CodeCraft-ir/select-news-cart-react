@@ -16,7 +16,7 @@ function App(props) {
           {selectedArticles.length}
         </span>
       </div>
-      <div className="articles container flex flex-wrap gap-3 justify-center mx-auto py-32">
+      <div className="articles container flex flex-wrap gap-3 justify-center mx-auto px-8 py-32">
         {data.map((item, index) => {
           return (
             

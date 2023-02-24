@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ArticleCard.css";
+import default_img from "../../assets/img/default-img.jpg"
 function ArticleCard(props) {
   const { data, functions,articleIndex,isSelected } = props;
   const { image, title } = data;
   const { handelAddArticle } = functions;
+  const [imgError,setImgError] = useState(true)
+
   return (
-    <div className="article rounded-2xl bg-gray-50 shadow-2xl w-1/4 flex flex-col justify-center items-center py-4 h-[300px]  text-center gap-7 mb-[72px] z-3">
+    <div className="article rounded-2xl bg-gray-50 shadow-2xl w-full md:w-2/4 lg:w-1/4 flex flex-col justify-center items-center py-4 h-[300px]  text-center gap-7 mb-[72px] z-3 ">
       <div
         className={
-          "img w-5/6 relative z-10 mt-[-72px] shadow-xl rounded-2xl bg-cover h-[180px]"
+          "img w-5/6 relative z-10 mt-[-72px] shadow-xl rounded-2xl bg-cover h-[180px] bg-gray-900"
         }
-        style={{ backgroundImage: `url(${image})` }}
+        style={{ backgroundImage: `url(${imgError ? image : default_img})` }}
       >
         <img
           src={image}
-          className="z-3 relative rounded-2xl hidden"
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null;
+            setImgError(false)
+            currentTarget.src=default_img;
+          }}
+          className="z-3 relative rounded-2xl w-full hidden"
           alt={title}
         />
       </div>
